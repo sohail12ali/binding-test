@@ -1,0 +1,19 @@
+<p>
+  extended-input works!
+</p>
+
+<div>
+  <label>{{label}}</label>
+  <input [(ngModel)]="name" name="{{name}}" type="text" [required]="required ? '' : null" #iname="ngModel" />
+  <div *ngIf="iname.errors">
+    <div *ngIf="(!!iname.errors) && (iname.errors.constructor === Array)">
+      <div *ngFor="let error of iname.errors">
+        <span *ngIf="error.required">{{label}} required</span>
+      </div>
+    </div>
+    <div *ngIf="!((!!iname.errors) && (iname.errors.constructor === Array))">
+      <span *ngIf="iname.errors.required">{{label}} required</span>
+      <span *ngIf="iname.errors.minlength">minimum length is {{iname.errors.minlength.requiredLength }}</span>
+    </div>
+  </div>
+</div>

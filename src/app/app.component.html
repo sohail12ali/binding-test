@@ -1,3 +1,48 @@
 <h1>
   {{title}}
 </h1>
+
+
+
+<form #form="ngForm" novalidate>
+
+  <button (click)="test(form)">Test values</button>
+
+  <div ngModelGroup="userModel">
+    <div ngModelGroup="user">
+      <!--<div>
+        <label>First Name</label>
+        <input [(ngModel)]="userModel.user.firstName" name="firstName" type="text" />
+      </div>-->
+
+      <extended-input [form]="form" [name]="userModel.user.firstName" label="First Name" [required]="true"></extended-input>
+
+      <div>
+        <label>Last Name</label>
+        <input [(ngModel)]="userModel.user.lastName" name="lastName" type="text" required minlength="4" #lastName="ngModel" />
+        <br>TODO: remove this: {{lastName.className }}
+
+        <span>Valid: {{lastName.valid}}</span>
+      </div>
+      <div *ngIf="lastName.errors">
+        <div *ngIf="(!!lastName.errors) && (lastName.errors.constructor === Array)">
+          <div *ngFor="let error of lastName.errors">
+            <span *ngIf="error.required">{{label}} required</span>
+          </div>
+        </div>
+        <div *ngIf="!((!!lastName.errors) && (lastName.errors.constructor === Array))">
+          <span *ngIf="lastName.errors.required">{{label}} required</span>
+          <span *ngIf="lastName.errors.minlength">minimum length is {{lastName.errors.minlength.requiredLength }}</span>
+        </div>
+      </div>
+    </div>
+
+    <app-address [address]="userModel.address"></app-address>
+
+  </div>
+
+
+  <div>
+    <pre>{{form.value | json}}</pre>
+  </div>
+</form>
