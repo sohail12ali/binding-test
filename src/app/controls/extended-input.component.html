@@ -4,7 +4,7 @@
 
 <div>
   <label>{{label}}</label>
-  <input [(ngModel)]="name" name="{{name}}" type="text" [required]="required ? '' : null" #iname="ngModel" />
+  <input [(ngModel)]="name" name="{{name}}" type="text" [required]="required ? '' : null" [minlength]="minlength" #iname="ngModel" />
   <div *ngIf="iname.errors">
     <div *ngIf="(!!iname.errors) && (iname.errors.constructor === Array)">
       <div *ngFor="let error of iname.errors">
@@ -14,6 +14,10 @@
     <div *ngIf="!((!!iname.errors) && (iname.errors.constructor === Array))">
       <span *ngIf="iname.errors.required">{{label}} required</span>
       <span *ngIf="iname.errors.minlength">minimum length is {{iname.errors.minlength.requiredLength }}</span>
+    </div>
+
+    <div>
+      <div (click)="Test(iname)">Validators:</div>
     </div>
   </div>
 </div>

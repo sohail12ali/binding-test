@@ -29,7 +29,7 @@ export class AppComponent {
   }
 
   test(form: NgForm) {
-    console.log(form);
+    //console.log(form);
   }
 
 }
